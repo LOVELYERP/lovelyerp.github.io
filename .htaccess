@@ -2,14 +2,12 @@
 RewriteEngine On
 RewriteBase /
 
+RewriteRule (.*) http://www.lovelyerp.com [R=301,L]
 # http: rewrite rule to secure sections (redirect to https)
 RewriteCond %{HTTPS} off
 RewriteCond %{REQUEST_URI} ^(/directoryA(.*)$|/directoryB(.*)$)$
 RewriteRule (.*) https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
-# Now, rewrite any request to the wrong domain to use www.
-# [NC] is a case-insensitive match
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 # http: rewrite rule for other pages (redirect to http)
 RewriteCond %{HTTPS} on
 RewriteCond %{REQUEST_FILENAME} !-f
