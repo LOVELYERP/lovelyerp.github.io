@@ -2,10 +2,12 @@
 RewriteEngine On
 RewriteBase /
 
-Redirect 301 https://lovelyerp.com http://www.lovelyerp.com/
-
 # http: rewrite rule to secure sections (redirect to https)
 RewriteCond %{HTTPS} off
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/directoryA(.*)$
+RewriteCond %{REQUEST_URI} !^/directoryB(.*)$
 RewriteCond %{REQUEST_URI} ^(/directoryA(.*)$|/directoryB(.*)$)$
 RewriteRule (.*) https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
 
