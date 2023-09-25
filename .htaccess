@@ -6,7 +6,7 @@ RewriteBase /
 RewriteCond %{HTTPS} off
 RewriteCond %{REQUEST_URI} ^(/directoryA(.*)$|/directoryB(.*)$)$
 RewriteRule (.*) https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
-
+RewriteRule (.*) https://%{REQUEST_URI} [L,R]
 # http: rewrite rule for other pages (redirect to http)
 RewriteCond %{HTTPS} on
 RewriteCond %{REQUEST_FILENAME} !-f
