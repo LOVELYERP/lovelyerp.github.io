@@ -1,0 +1,16 @@
+# Enable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+# http: rewrite rule to secure sections (redirect to https)
+RewriteCond %{HTTPS} off
+RewriteCond %{REQUEST_URI} ^(/directoryA(.*)$|/directoryB(.*)$)$
+RewriteRule (.*) https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
+
+# http: rewrite rule for other pages (redirect to http)
+RewriteCond %{HTTPS} on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/directoryA(.*)$
+RewriteCond %{REQUEST_URI} !^/directoryB(.*)$
+RewriteRule (.*)  http://%{SERVER_NAME}%{REQUEST_URI} [L,R]
